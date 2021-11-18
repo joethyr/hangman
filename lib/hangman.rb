@@ -23,7 +23,7 @@ class Hangman
 
   def player_input
     input = gets.chomp
-    if input.length != 1 || input.match(/[^a-z]/)
+    if input.length != 1 || input.match(/[^a-z]/i)
       puts input
       puts "invalid input. Please enter a letter:"
       player_input
@@ -42,7 +42,7 @@ class Hangman
   def hide_display_word
     display_word.map do |letter|
       if letters_used.include?(letter)
-        letter
+        print letter
       else
         print "-"
       end
@@ -52,5 +52,5 @@ class Hangman
 end
 
 play = Hangman.new
-# play.test
+p play.display_word
 play.game
