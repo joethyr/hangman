@@ -20,7 +20,7 @@ class Hangman
       print "\nEnter a letter for the hidden word:\n>"
       player_input = validate_player_input
       check_guess(player_input)
-      # check_player_won
+      check_player_won
     end
     # player_lost
   end
@@ -43,22 +43,23 @@ class Hangman
   def check_guess(player_input)
     if !keyword.include?(player_input)
       @turns -= 1
-      puts "incorrect letter!\nYou have #{turns} turns left."
       incorrect_letters_used << player_input
-      print "incorrect letters used: #{incorrect_letters_used}\n"
+      print "Incorrect!\nIncorrect letters used: #{incorrect_letters_used}\n"
+      puts "You have #{turns} turns left."
     else
       puts "correct!"
     end
   end
 
-  # def check_player_won
-  #   if keyword ==
-  # end
+  def check_player_won
+    player_won if (display_word.map(&:downcase) - letters_used).empty?
+  end
 
-  # def player_won
-  #   puts "You won!"
-  #   play_again
-  # end
+  def player_won
+    puts "You won!"
+    exit
+    # play_again
+  end
 
   # def player_lost
   #   puts "You lose! the correct word is #{keyword}"
