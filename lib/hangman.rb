@@ -22,13 +22,13 @@ class Hangman
   end
 
   def player_input
-    input = gets.chomp
+    input = gets.chomp.downcase
     if input.length != 1 || input.match(/[^a-z]/i)
       puts input
-      puts "invalid input. Please enter a letter:"
+      print "Invalid input. Please enter a letter from A-Z:\n>"
       player_input
     elsif letters_used.include?(input)
-      puts "input already used. Please enter a letter:"
+      print "Input already used. Please enter a letter from A-Z:\n>"
       player_input
     else
       letters_used << input
@@ -41,7 +41,7 @@ class Hangman
 
   def hide_display_word
     display_word.map do |letter|
-      if letters_used.include?(letter)
+      if letters_used.include?(letter.downcase)
         print letter
       else
         print "-"
