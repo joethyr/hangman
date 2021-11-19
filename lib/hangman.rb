@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Hangman
-  attr_reader :keyword, :letters_used, :turns
+  attr_reader :keyword, :letters_used, :turns, :incorrect_letters_used
 
   def initialize
     @keyword = random_select_word
     @letters_used = []
+    @incorrect_letters_used = []
     @turns = 10
   end
 
@@ -19,7 +20,9 @@ class Hangman
       print "\nEnter a letter for the hidden word:\n>"
       player_input = validate_player_input
       check_guess(player_input)
+      # check_player_won
     end
+    # player_lost
   end
 
   def validate_player_input
@@ -40,11 +43,36 @@ class Hangman
   def check_guess(player_input)
     if !keyword.include?(player_input)
       @turns -= 1
-      puts "incorrect letter!\n You have #{turns} turns left."
+      puts "incorrect letter!\nYou have #{turns} turns left."
+      incorrect_letters_used << player_input
+      print "incorrect letters used: #{incorrect_letters_used}\n"
     else
       puts "correct!"
     end
   end
+
+  # def check_player_won
+  #   if keyword ==
+  # end
+
+  # def player_won
+  #   puts "You won!"
+  #   play_again
+  # end
+
+  # def player_lost
+  #   puts "You lose! the correct word is #{keyword}"
+  #   play_again
+  # end
+
+  # def play_again
+  #   print "Play again? (y/n)\n>"
+  #   input = gets.chomp
+  #   exit if input.upcase == 'N'
+  #   game if input.upcase == 'Y'
+  #   puts "Invalid input.\n"
+  #   play_again
+  # end
 
   def display_word
     keyword.split('')
