@@ -22,7 +22,7 @@ class Hangman
       check_guess(player_input)
       check_player_won
     end
-    # player_lost
+    player_lost
   end
 
   def validate_player_input
@@ -47,7 +47,7 @@ class Hangman
       print "Incorrect!\nIncorrect letters used: #{incorrect_letters_used}\n"
       puts "You have #{turns} turns left."
     else
-      puts "correct!"
+      puts "correct! you guessed the correct word #{keyword}!"
     end
   end
 
@@ -57,26 +57,29 @@ class Hangman
 
   def player_won
     puts "You won!"
-    exit
-    # play_again
+    play_again
   end
 
-  # def player_lost
-  #   puts "You lose! the correct word is #{keyword}"
-  #   play_again
-  # end
+  def player_lost
+    puts "You lose! the correct word is #{keyword}"
+    play_again
+  end
 
-  # def play_again
-  #   print "Play again? (y/n)\n>"
-  #   input = gets.chomp
-  #   exit if input.upcase == 'N'
-  #   game if input.upcase == 'Y'
-  #   puts "Invalid input.\n"
-  #   play_again
-  # end
+  def play_again
+    print "Play again? (y/n)\n>"
+    input = gets.chomp
+    exit if input.upcase == 'N'
+    new_game if input.upcase == 'Y'
+    puts "Invalid input.\n"
+    play_again
+  end
 
   def display_word
     keyword.split('')
+  end
+
+  def new_game
+    Hangman.new.game
   end
 
   def hide_display_word
