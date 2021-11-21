@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'yaml'
 
 class Hangman
   attr_reader :keyword, :letters_used, :turns, :incorrect_letters_used
@@ -20,9 +21,24 @@ class Hangman
       print "\nEnter a letter to guess the hidden word:\n>"
       player_input = validate_player_input
       check_guess(player_input)
+      save_game
       check_player_won
     end
     player_lost
+  end
+
+  def save_game
+    Dir.mkdir 'output' unless Dir.exist? 'output'
+    File.open('output/saved_file.yaml', 'w') { |f| f.write save_to_yaml }
+  end
+
+  def save_to_yaml
+    YAML.dump(
+      'keyword' => @keyword,
+      'letters_used' => @letters_used,
+      'incorrect_letters_used' => @incorrect_letters_used,
+      'turns' => @turns
+    )
   end
 
   def validate_player_input
