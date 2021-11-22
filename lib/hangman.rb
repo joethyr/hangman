@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 require 'yaml'
 require_relative 'input_output'
+require_relative 'player_input'
 
 class Hangman
   include InputOutput
-  attr_reader :keyword, :letters_used, :turns, :incorrect_letters_used
+  attr_reader :keyword, :turns, :incorrect_letters_used
 
   def initialize
     @keyword = random_select_word
-    @letters_used = []
-    @incorrect_letters_used = []
     @turns = 10
+    @player_input = PlayerInput.new
+    @incorrect_letters_used = []
+  end
+
+  def letters_used
+    @player_input.letters_used
   end
 
   def random_select_word
@@ -19,34 +24,20 @@ class Hangman
 
   def game
     until @turns.zero?
-      hide_display_word
+      reveal_key_letters
       print "\nEnter a letter to guess the hidden word:\n>"
-      player_input = validate_player_input
-      check_guess(player_input)
+      guess = @player_input.validate
+      guess_results(guess)
       save_game
       check_player_won
     end
     player_lost
   end
 
-  def validate_player_input
-    input = gets.chomp.downcase
-    if input.length != 1 || input.match(/[^a-z]/i)
-      print "Invalid input. Please enter a letter from A-Z:\n>"
-      validate_player_input
-    elsif letters_used.include?(input)
-      print "Input already used. Please enter a letter from A-Z:\n>"
-      validate_player_input
-    else
-      letters_used << input
-      input
-    end
-  end
-
-  def check_guess(player_input)
-    if !keyword.include?(player_input)
+  def guess_results(guess)
+    if !keyword.include?(guess)
       @turns -= 1
-      incorrect_letters_used << player_input
+      incorrect_letters_used << guess
       print "Incorrect!\nIncorrect letters used: #{incorrect_letters_used}\n"
       puts "You have #{turns} turns left."
     else
@@ -81,7 +72,7 @@ class Hangman
     Hangman.new.game
   end
 
-  def hide_display_word
+  def reveal_key_letters
     keyword.split('').map do |letter|
       letters_used.include?(letter.downcase) ? (print letter) : (print '-')
     end
@@ -89,5 +80,5 @@ class Hangman
 end
 
 play = Hangman.new
-# p play.display_word
+# p play.reveal_key_letters
 play.game
