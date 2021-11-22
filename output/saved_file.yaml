@@ -1,5 +1,5 @@
 ---
-keyword: trifocals
+keyword: seascape
 letters_used:
 - a
 - e
@@ -7,6 +7,7 @@ letters_used:
 - o
 - u
 incorrect_letters_used:
-- e
+- i
+- o
 - u
-turns: 8
+turns: 7

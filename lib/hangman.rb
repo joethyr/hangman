@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 require 'yaml'
+require_relative 'input_output'
 
 class Hangman
+  include InputOutput
   attr_reader :keyword, :letters_used, :turns, :incorrect_letters_used
 
   def initialize
@@ -25,20 +27,6 @@ class Hangman
       check_player_won
     end
     player_lost
-  end
-
-  def save_game
-    Dir.mkdir 'output' unless Dir.exist? 'output'
-    File.open('output/saved_file.yaml', 'w') { |f| f.write save_to_yaml }
-  end
-
-  def save_to_yaml
-    YAML.dump(
-      'keyword' => @keyword,
-      'letters_used' => @letters_used,
-      'incorrect_letters_used' => @incorrect_letters_used,
-      'turns' => @turns
-    )
   end
 
   def validate_player_input
