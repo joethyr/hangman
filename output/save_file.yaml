@@ -1,15 +1,24 @@
 ---
-keyword: epistle
-letters_used: 
-incorrect_letters_used:
+keyword: excess
+letters_used:
 - a
+- e
+- i
 - o
 - u
 - r
-- m
-- c
+- t
 - n
-- v
-- b
-- g
-turns: 0
+- h
+- l
+incorrect_letters_used:
+- a
+- i
+- o
+- u
+- r
+- t
+- n
+- h
+- l
+turns: 1

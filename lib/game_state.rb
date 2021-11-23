@@ -1,4 +1,4 @@
-module InputOutput
+module GameState
   def save_game
     Dir.mkdir 'output' unless Dir.exist? 'output'
     File.open('output/save_file.yaml', 'w') { |f| f.write save_to_yaml }

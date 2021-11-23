@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 require 'yaml'
-require_relative 'input_output'
-require_relative 'player_input'
+require_relative 'game_state'
 
 class Hangman
-  include InputOutput
-  attr_reader :keyword, :turns, :incorrect_letters_used
+  include GameState
+  attr_reader :keyword, :turns, :incorrect_letters_used, :letters_used
 
   def initialize
     @keyword = random_select_word
     @turns = 10
-    @player_input = PlayerInput.new
     @incorrect_letters_used = []
-  end
-
-  def letters_used
-    @player_input.letters_used
+    @letters_used = []
   end
 
   def random_select_word
@@ -25,13 +20,38 @@ class Hangman
   def game
     until @turns.zero?
       reveal_key_letters
-      print "\nEnter a letter to guess the hidden word:\n>"
-      guess = @player_input.validate
+      guess = validate_input
       guess_results(guess)
-      save_game
       check_player_won
     end
     player_lost
+  end
+
+  def validate_input
+    print "\nEnter a letter to guess the hidden word:\n>"
+    input = gets.chomp.downcase
+    return input_save_game if input.downcase == 'save'
+    return input_invalid if input.length != 1 || input.match(/[^a-z]/i)
+    return input_reused if letters_used.include?(input)
+
+    letters_used << input
+    input
+  end
+
+  def input_save_game
+    save_game
+    print 'Your game has now been saved!'
+    validate_input
+  end
+
+  def input_invalid
+    print "Invalid input."
+    validate_input
+  end
+
+  def input_reused
+    print "Input already used."
+    validate_input
   end
 
   def guess_results(guess)
