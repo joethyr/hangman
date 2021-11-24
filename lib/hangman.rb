@@ -18,6 +18,7 @@ class Hangman
   end
 
   def game
+    introduction
     until @turns.zero?
       reveal_key_letters
       guess = validate_input
@@ -38,10 +39,20 @@ class Hangman
     input
   end
 
+  def introduction
+    puts "Lets play a game of hangman\nWould you like to load a recently saved game?"
+    return input_load_saved_game if gets.chomp.downcase == 'load'
+  end
+
   def input_save_game
     save_game
     print 'Your game has now been saved!'
     validate_input
+  end
+
+  def input_load_saved_game
+    load_saved_game
+    print 'You have now loaded your recent saved game!'
   end
 
   def input_invalid

@@ -1,24 +1,16 @@
 ---
-keyword: excess
+keyword: unconcerned
 letters_used:
-- a
 - e
-- i
+- j
 - o
-- u
-- r
-- t
-- n
-- h
-- l
-incorrect_letters_used:
+- m
 - a
-- i
-- o
-- u
-- r
-- t
 - n
-- h
-- l
-turns: 1
+- p
+incorrect_letters_used:
+- j
+- m
+- a
+- p
+turns: 6
