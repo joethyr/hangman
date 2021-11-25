@@ -42,6 +42,7 @@ class Hangman
 
   def introduction
     puts "Lets play a game of Hangman!"
+    puts "*Tip*: You can save your progress by typing in the word 'save'."
   end
 
   def load_game

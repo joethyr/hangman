@@ -1,16 +1,12 @@
 ---
-keyword: unconcerned
+keyword: comically
 letters_used:
+- a
 - e
-- j
+- i
 - o
-- m
-- a
-- n
-- p
+- u
 incorrect_letters_used:
-- j
-- m
-- a
-- p
-turns: 6
+- e
+- u
+turns: 8
